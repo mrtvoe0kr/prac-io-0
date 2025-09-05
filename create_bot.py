@@ -9,7 +9,7 @@ import numpy as np
 import io
 import sympy as sp
 
-# Инициализация глобальных переменных
+#глобальные переменные
 current_figure = None
 
 def reset_figure():
@@ -200,19 +200,19 @@ async def handle_3d_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def update_legend(ax, label, color):
     handles, labels = ax.get_legend_handles_labels()
 
-    # Проверяем, существует ли уже такая подпись
+    #проверяем, существует ли уже такая подпись
     if label not in labels:
-        proxy = plt.Line2D([0], [0], color=color, lw=2)  # Прокси-объект для легенды
+        proxy = plt.Line2D([0], [0], color=color, lw=2)  #прокси-объект для легенды
         handles.append(proxy)
         labels.append(label)
 
     ax.legend(handles, labels, loc='upper right')
 
-# Инициализация палитры цветов
-color_palette = list(cm.tab10.colors)  # используем палитру из 10 цветов
+#инициализация палитры цветов
+color_palette = list(cm.tab10.colors)  #используем палитру из 10 цветов
 color_cycle = cycler(color=color_palette)
 current_color_index = 0
-# Глобальный список для хранения информации о графиках
+#глобальный список для хранения информации о графиках
 plot_handles = []
 plot_labels = []
 ##############################################################################
@@ -411,7 +411,7 @@ async def draw_parametric_surface_3D(update: Update, context: ContextTypes.DEFAU
         Y = eval(y_expr.replace('^', '**'), env)
         Z = eval(z_expr.replace('^', '**'), env)
 
-        # Сбрасываем график
+        #сбрасываем график
         if current_figure is None:
             reset_figure()
 
@@ -421,7 +421,7 @@ async def draw_parametric_surface_3D(update: Update, context: ContextTypes.DEFAU
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
 
-        # Отправляем график
+        #отправляем график
         await send_plot(update, context)
     except Exception as e:
         await update.message.reply_text(f"Ошибка: {e}")
@@ -462,3 +462,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
